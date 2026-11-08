@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/vladimirjitaru/pizza#"
+         xml:base="http://www.semanticweb.org/vladimirjitaru/pizza"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+
+    <owl:Ontology rdf:about="http://www.semanticweb.org/vladimirjitaru/pizza">
+        <rdfs:label xml:lang="ro">Ontologie Pizza - Laborator 4</rdfs:label>
+        <rdfs:comment xml:lang="ro">Ontologie pentru domeniul pizza: pizze, toppinguri, blaturi si studentul autor.</rdfs:comment>
+    </owl:Ontology>
+
+    <!-- ===================== Clase ===================== -->
+
+    <owl:Class rdf:about="#Pizza">
+        <rdfs:label>Pizza</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#MargheritaPizza">
+        <rdfs:label>MargheritaPizza</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Pizza"/>
+    </owl:Class>
+    <owl:Class rdf:about="#PepperoniPizza">
+        <rdfs:label>PepperoniPizza</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Pizza"/>
+    </owl:Class>
+    <owl:Class rdf:about="#VegetarianPizza">
+        <rdfs:label>VegetarianPizza</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Pizza"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Topping">
+        <rdfs:label>Topping</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#CheeseTopping">
+        <rdfs:label>CheeseTopping</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Topping"/>
+    </owl:Class>
+    <owl:Class rdf:about="#MeatTopping">
+        <rdfs:label>MeatTopping</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Topping"/>
+    </owl:Class>
+    <owl:Class rdf:about="#VegetableTopping">
+        <rdfs:label>VegetableTopping</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Topping"/>
+    </owl:Class>
+    <owl:Class rdf:about="#SauceTopping">
+        <rdfs:label>SauceTopping</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Topping"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="#PizzaBase">
+        <rdfs:label>PizzaBase</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:about="#ThinCrustBase">
+        <rdfs:label>ThinCrustBase</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PizzaBase"/>
+    </owl:Class>
+    <owl:Class rdf:about="#DeepPanBase">
+        <rdfs:label>DeepPanBase</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PizzaBase"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Student">
+        <rdfs:label>Student</rdfs:label>
+    </owl:Class>
+
+    <owl:AllDisjointClasses>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="#Pizza"/>
+            <rdf:Description rdf:about="#Topping"/>
+            <rdf:Description rdf:about="#PizzaBase"/>
+            <rdf:Description rdf:about="#Student"/>
+        </owl:members>
+    </owl:AllDisjointClasses>
+
+    <!-- ===================== Proprietati de obiect ===================== -->
+
+    <owl:ObjectProperty rdf:about="#hasTopping">
+        <rdfs:label>hasTopping</rdfs:label>
+        <rdfs:domain rdf:resource="#Pizza"/>
+        <rdfs:range rdf:resource="#Topping"/>
+        <owl:inverseOf rdf:resource="#isToppingOf"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="#isToppingOf">
+        <rdfs:label>isToppingOf</rdfs:label>
+        <rdfs:domain rdf:resource="#Topping"/>
+        <rdfs:range rdf:resource="#Pizza"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="#hasBase">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:label>hasBase</rdfs:label>
+        <rdfs:domain rdf:resource="#Pizza"/>
+        <rdfs:range rdf:resource="#PizzaBase"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="#likesPizza">
+        <rdfs:label>likesPizza</rdfs:label>
+        <rdfs:domain rdf:resource="#Student"/>
+        <rdfs:range rdf:resource="#Pizza"/>
+    </owl:ObjectProperty>
+
+    <!-- ===================== Proprietati de date ===================== -->
+
+    <owl:DatatypeProperty rdf:about="#hasPrice">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:label>hasPrice</rdfs:label>
+        <rdfs:comment xml:lang="ro">Pretul pizzei, in lei.</rdfs:comment>
+        <rdfs:domain rdf:resource="#Pizza"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    <owl:DatatypeProperty rdf:about="#hasCalories">
+        <rdfs:label>hasCalories</rdfs:label>
+        <rdfs:comment xml:lang="ro">Numarul de calorii (kcal).</rdfs:comment>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    <owl:DatatypeProperty rdf:about="#isSpicy">
+        <rdfs:label>isSpicy</rdfs:label>
+        <rdfs:domain rdf:resource="#Topping"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    <owl:DatatypeProperty rdf:about="#hasUserHash">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:label>hasUserHash</rdfs:label>
+        <rdfs:comment xml:lang="ro">Hash SHA-256 al emailului institutional (generat cu my_hash.py).</rdfs:comment>
+        <rdfs:domain rdf:resource="#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+
+    <!-- ===================== Indivizi ===================== -->
+
+    <!-- Blaturi -->
+    <owl:NamedIndividual rdf:about="#thinBase1">
+        <rdf:type rdf:resource="#ThinCrustBase"/>
+        <rdfs:label>thinBase1</rdfs:label>
+        <hasCalories rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">450</hasCalories>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#deepPanBase1">
+        <rdf:type rdf:resource="#DeepPanBase"/>
+        <rdfs:label>deepPanBase1</rdfs:label>
+        <hasCalories rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">700</hasCalories>
+    </owl:NamedIndividual>
+
+    <!-- Toppinguri -->
+    <owl:NamedIndividual rdf:about="#mozzarella1">
+        <rdf:type rdf:resource="#CheeseTopping"/>
+        <rdfs:label>mozzarella1</rdfs:label>
+        <hasCalories rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">280</hasCalories>
+        <isSpicy rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isSpicy>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#tomatoSauce1">
+        <rdf:type rdf:resource="#SauceTopping"/>
+        <rdfs:label>tomatoSauce1</rdfs:label>
+        <hasCalories rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60</hasCalories>
+        <isSpicy rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isSpicy>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#pepperoni1">
+        <rdf:type rdf:resource="#MeatTopping"/>
+        <rdfs:label>pepperoni1</rdfs:label>
+        <hasCalories rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">490</hasCalories>
+        <isSpicy rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isSpicy>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#mushroom1">
+        <rdf:type rdf:resource="#VegetableTopping"/>
+        <rdfs:label>mushroom1</rdfs:label>
+        <hasCalories rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</hasCalories>
+        <isSpicy rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isSpicy>
+    </owl:NamedIndividual>
+
+    <!-- Pizze -->
+    <owl:NamedIndividual rdf:about="#margheritaPizza1">
+        <rdf:type rdf:resource="#MargheritaPizza"/>
+        <rdfs:label>margheritaPizza1</rdfs:label>
+        <hasBase rdf:resource="#thinBase1"/>
+        <hasTopping rdf:resource="#mozzarella1"/>
+        <hasTopping rdf:resource="#tomatoSauce1"/>
+        <hasPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">32.50</hasPrice>
+        <hasCalories rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">790</hasCalories>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#pepperoniPizza1">
+        <rdf:type rdf:resource="#PepperoniPizza"/>
+        <rdfs:label>pepperoniPizza1</rdfs:label>
+        <hasBase rdf:resource="#deepPanBase1"/>
+        <hasTopping rdf:resource="#mozzarella1"/>
+        <hasTopping rdf:resource="#tomatoSauce1"/>
+        <hasTopping rdf:resource="#pepperoni1"/>
+        <hasPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">39.90</hasPrice>
+        <hasCalories rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1530</hasCalories>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#vegetarianPizza1">
+        <rdf:type rdf:resource="#VegetarianPizza"/>
+        <rdfs:label>vegetarianPizza1</rdfs:label>
+        <hasBase rdf:resource="#thinBase1"/>
+        <hasTopping rdf:resource="#mozzarella1"/>
+        <hasTopping rdf:resource="#tomatoSauce1"/>
+        <hasTopping rdf:resource="#mushroom1"/>
+        <hasPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">35.00</hasPrice>
+        <hasCalories rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">830</hasCalories>
+    </owl:NamedIndividual>
+
+    <!-- Studentul autor -->
+    <owl:NamedIndividual rdf:about="#euStudent">
+        <rdf:type rdf:resource="#Student"/>
+        <rdfs:label>euStudent</rdfs:label>
+        <likesPizza rdf:resource="#margheritaPizza1"/>
+        <likesPizza rdf:resource="#vegetarianPizza1"/>
+        <hasUserHash rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3f02e8197ae123f5d1af3ff6858ee961e0ed66e68776adafcaaaec273f2f68d6</hasUserHash>
+    </owl:NamedIndividual>
+
+</rdf:RDF>
